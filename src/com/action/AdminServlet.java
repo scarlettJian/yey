@@ -1,6 +1,6 @@
 package com.action;
 /**
- * ¹ÜÀíÔ±µÇÂ½ Ôö¼Ó ÐÞ¸Ä É¾³ý  
+ * ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½Â½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¸ï¿½ É¾ï¿½ï¿½  
  */
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -44,39 +44,39 @@ public class AdminServlet extends HttpServlet {
 			String method=request.getParameter("method").trim();
 			ComBean cBean = new ComBean();
 			HttpSession session = request.getSession();   
-			if(method.equals("one")){//¹ÜÀíÔ±µÇÂ¼
+			if(method.equals("one")){//ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½Â¼
 				String username = request.getParameter("username");
 				String password = request.getParameter("password");  
 				String str=cBean.getString("select realname from admin where username='"+username+"' and  password='"+password+"' ");
 				if(str==null){
-					request.setAttribute("message", "µÇÂ¼ÐÅÏ¢´íÎó£¡");
+					request.setAttribute("message", "ï¿½ï¿½Â¼ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½");
 					request.getRequestDispatcher("login.jsp").forward(request, response); 
 				} else{
 					session.setAttribute("user", username); 
 					request.getRequestDispatcher("admin/index.jsp").forward(request, response); 
 				}  
-			} else if(method.equals("uppwd")){//ÐÞ¸ÄÃÜÂë
+			} else if(method.equals("uppwd")){//ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½
 				String username=(String)session.getAttribute("user"); 
 				String oldpwd = request.getParameter("oldpwd"); 
 				String newpwd = request.getParameter("newpwd"); 
 				String str=cBean.getString("select id from admin where username='"+username+"' and  password='"+oldpwd+"'");
 				if(str==null){
-					request.setAttribute("message", "Ô­Ê¼ÃÜÂëÐÅÏ¢´íÎó£¡");
+					request.setAttribute("message", "Ô­Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½");
 					request.getRequestDispatcher("admin/system/editpwd.jsp").forward(request, response); 
 				} else{
 					int flag=cBean.comUp("update admin set password='"+newpwd+"' where username='"+username+"'");
 					if(flag == Constant.SUCCESS){ 
-						request.setAttribute("message", "²Ù×÷³É¹¦£¡");
+						request.setAttribute("message", "ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½");
 						request.getRequestDispatcher("admin/system/editpwd.jsp").forward(request, response); 
 					} else { 
-						request.setAttribute("message", "²Ù×÷Ê§°Ü£¡");
+						request.setAttribute("message", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½");
 						request.getRequestDispatcher("admin/system/editpwd.jsp").forward(request, response); 
 					}
 				}
-			} else if(method.equals("adminexit")){//ÍË³öµÇÂ¼
+			} else if(method.equals("adminexit")){//ï¿½Ë³ï¿½ï¿½ï¿½Â¼
 				session.removeAttribute("user");  
 				request.getRequestDispatcher("index.jsp").forward(request, response); 
-			} else if(method.equals("addm")){//Ôö¼ÓÏµÍ³ÓÃ»§
+			} else if(method.equals("addm")){//ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½Ã»ï¿½
 				String username = request.getParameter("username"); 
 				String password = request.getParameter("password"); 
 				String realname = request.getParameter("realname"); 
@@ -89,17 +89,17 @@ public class AdminServlet extends HttpServlet {
 						int flag=cBean.comUp("insert into admin(username,password,realname,sex,age,address,tel,addtime) " +
 								"values('"+username+"','"+password+"','"+realname+"','"+sex+"','"+age+"','"+address+"','"+tel+"','"+date+"')");
 						if(flag == Constant.SUCCESS){ 
-							request.setAttribute("message", "²Ù×÷³É¹¦£¡");
+							request.setAttribute("message", "ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½");
 							request.getRequestDispatcher("admin/system/index.jsp").forward(request, response); 
 						} else { 
-							request.setAttribute("message", "²Ù×÷Ê§°Ü£¡");
+							request.setAttribute("message", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½");
 							request.getRequestDispatcher("admin/system/index.jsp").forward(request, response); 
 						} 
 				} else{
-					request.setAttribute("message", "¸ÃÓÃ»§ÃûÒÑ´æÔÚ£¡");
+					request.setAttribute("message", "ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½ï¿½Ú£ï¿½");
 					request.getRequestDispatcher("admin/system/index.jsp").forward(request, response); 
 				} 
-			} else if(method.equals("upm")){//ÐÞ¸ÄÏµÍ³ÓÃ»§
+			} else if(method.equals("upm")){//ï¿½Þ¸ï¿½ÏµÍ³ï¿½Ã»ï¿½
 				String id = request.getParameter("id");
 				String password = request.getParameter("password");
 				String realname = request.getParameter("realname"); 
@@ -110,24 +110,24 @@ public class AdminServlet extends HttpServlet {
 				int flag=cBean.comUp("update admin set password='"+password+"',realname='"+realname+"',sex='"+sex+"',age='"+age+"'," +
 						"address='"+address+"',tel='"+tel+"' where id='"+id+"'");
 				if(flag == Constant.SUCCESS){ 
-					request.setAttribute("message", "²Ù×÷³É¹¦£¡");
+					request.setAttribute("message", "ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½");
 					request.getRequestDispatcher("admin/system/index.jsp").forward(request, response); 
 				} else { 
-					request.setAttribute("message", "²Ù×÷Ê§°Ü£¡");
+					request.setAttribute("message", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½");
 					request.getRequestDispatcher("admin/system/index.jsp").forward(request, response); 
 				}
-			} else if(method.equals("delm")){//É¾³ýÏµÍ³ÓÃ»§
+			} else if(method.equals("delm")){//É¾ï¿½ï¿½ÏµÍ³ï¿½Ã»ï¿½
 				String id = request.getParameter("id");  
 				int flag=cBean.comUp("delete from admin where id='"+id+"'");
 				if(flag == Constant.SUCCESS){ 
-					request.setAttribute("message", "²Ù×÷³É¹¦£¡");
+					request.setAttribute("message", "ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½");
 					request.getRequestDispatcher("admin/system/index.jsp").forward(request, response); 
 				}
 				else { 
-					request.setAttribute("message", "²Ù×÷Ê§°Ü£¡");
+					request.setAttribute("message", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½");
 					request.getRequestDispatcher("admin/system/index.jsp").forward(request, response); 
 				}
-			} else{//ÎÞ²ÎÊý´«Èë×ªµ½´íÎóÒ³Ãæ
+			} else{//ï¿½Þ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½
 				request.getRequestDispatcher("error.jsp").forward(request, response);
 			}
 		}catch(Exception e){
